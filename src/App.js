@@ -16,15 +16,25 @@ class RandomNumberMaker {
   }
 }
 
-// Using the class
-const maker = new RandomNumberMaker();
+/* const maker = new RandomNumberMaker();
 const uniqueNumber = maker.makeRandomNumber();
-console.log(uniqueNumber);
+console.log(uniqueNumber); */
 
-/* 
 class App {
-  async play() {}
+  constructor() {
+    this.randomNumberMaker = new RandomNumberMaker();
+  }
+
+  async play() {
+    try {
+      const uniqueNumber = this.randomNumberMaker.makeRandomNumber();
+      console.log(uniqueNumber);
+    } catch (error) {
+      console.error("에러 메시지:", error);
+      throw error;
+    }
+  }
 }
 
-export default App; */
-export default RandomNumberMaker;
+export default App;
+// export default RandomNumberMaker;
