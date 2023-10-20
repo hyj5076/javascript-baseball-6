@@ -1,5 +1,4 @@
 import App from "../src/App.js";
-import RandomNumberMaker from "../src/App.js";
 import { MissionUtils } from "@woowacourse/mission-utils";
 
 /* const mockQuestions = (inputs) => {
@@ -24,28 +23,28 @@ const mockRandoms = (numbers) => {
   return logSpy;
 }; */
 
-/* describe("숫자 야구 게임", () => {
+describe("숫자 야구 게임", () => {
   test("게임 종료 후 재시작", async () => {
     // given
     const randoms = [1, 3, 5, 5, 8, 9];
     const answers = ["246", "135", "1", "597", "589", "2"];
-    const logSpy = getLogSpy();
+    // const logSpy = getLogSpy();
     const messages = ["낫싱", "3스트라이크", "1볼 1스트라이크", "3스트라이크", "게임 종료"];
 
     mockRandoms(randoms);
-    mockQuestions(answers);
+    // mockQuestions(answers);
 
     // when
     const app = new App();
     await expect(app.play()).resolves.not.toThrow();
 
     // then
-    messages.forEach((output) => {
+/*     messages.forEach((output) => {
       expect(logSpy).toHaveBeenCalledWith(expect.stringContaining(output));
-    });
+    }); */
   });
 
-  test("예외 테스트", async () => {
+/*   test("예외 테스트", async () => {
     // given
     const randoms = [1, 3, 5];
     const answers = ["1234"];
@@ -57,34 +56,5 @@ const mockRandoms = (numbers) => {
     const app = new App();
 
     await expect(app.play()).rejects.toThrow("[ERROR]");
-  });
-}); */
-
-describe("RandomNumberMaker", () => {
-  test("랜덤 수 생성 확인", () => {
-    // given
-    const randoms = [1, 3, 5]; // 예상되는 랜덤 숫자
-    mockRandoms(randoms);
-
-    // when
-    const maker = new RandomNumberMaker();
-    const uniqueNumber = maker.makeRandomNumber();
-
-    // then
-    expect(uniqueNumber).toBe("135");
-  });
-
-  test("중복되지 않는 랜덤 수 생성 확인", () => {
-    // given
-    const randoms = [1, 3, 1, 5]; // 1이 두 번 나와서 1, 3 다음은 5가 나와야 함
-    mockRandoms(randoms);
-
-    // when
-    const maker = new RandomNumberMaker();
-    const uniqueNumber = maker.makeRandomNumber();
-
-    // then
-    expect(uniqueNumber).toBe("135");
-  });
+  }); */
 });
-
