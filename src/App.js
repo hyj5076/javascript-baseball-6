@@ -1,4 +1,19 @@
-import { MissionUtils } from "@woowacourse/mission-utils";
+// 사용자 입력값 받기
+class UserNumberReader {
+  constructor(userNumber = '') {
+    this.userNumber = userNumber;
+  }
+
+  async userInputNumber() {
+    try {
+      this.userNumber = await Console.readLineAsync();
+      return this.userNumber;
+    } catch (error) {
+      console.error("오류 발생:", error);
+      throw error;
+    }
+  }
+}
 
 class RandomNumberMaker {
   constructor(randomNumber = '') {
@@ -16,25 +31,20 @@ class RandomNumberMaker {
   }
 }
 
-/* const maker = new RandomNumberMaker();
-const uniqueNumber = maker.makeRandomNumber();
-console.log(uniqueNumber); */
-
 class App {
   constructor() {
-    this.randomNumberMaker = new RandomNumberMaker();
+    this.maker = new RandomNumberMaker();
   }
 
   async play() {
     try {
-      const uniqueNumber = this.randomNumberMaker.makeRandomNumber();
-      console.log(uniqueNumber);
-    } catch (error) {
-      console.error("에러 메시지:", error);
-      throw error;
+      const uniqueNumber = this.maker.makeRandomNumber();
+      Console.print(uniqueNumber);
+    } catch(error) {
+      /* console.error("에러 메시지:", error);
+      throw error; */
     }
   }
 }
 
 export default App;
-// export default RandomNumberMaker;
