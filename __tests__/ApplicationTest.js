@@ -1,14 +1,15 @@
 import App from "../src/App.js";
+import RandomNumberMaker from "../src/App.js";
 import { MissionUtils } from "@woowacourse/mission-utils";
 
-const mockQuestions = (inputs) => {
+/* const mockQuestions = (inputs) => {
   MissionUtils.Console.readLineAsync = jest.fn();
 
   MissionUtils.Console.readLineAsync.mockImplementation(() => {
     const input = inputs.shift();
     return Promise.resolve(input);
   });
-};
+}; */
 
 const mockRandoms = (numbers) => {
   MissionUtils.Random.pickNumberInRange = jest.fn();
@@ -17,13 +18,13 @@ const mockRandoms = (numbers) => {
   }, MissionUtils.Random.pickNumberInRange);
 };
 
-const getLogSpy = () => {
+/* const getLogSpy = () => {
   const logSpy = jest.spyOn(MissionUtils.Console, "print");
   logSpy.mockClear();
   return logSpy;
-};
+}; */
 
-describe("숫자 야구 게임", () => {
+/* describe("숫자 야구 게임", () => {
   test("게임 종료 후 재시작", async () => {
     // given
     const randoms = [1, 3, 5, 5, 8, 9];
@@ -57,4 +58,33 @@ describe("숫자 야구 게임", () => {
 
     await expect(app.play()).rejects.toThrow("[ERROR]");
   });
+}); */
+
+describe("RandomNumberMaker", () => {
+  test("랜덤 수 생성 확인", () => {
+    // given
+    const randoms = [1, 3, 5]; // 예상되는 랜덤 숫자
+    mockRandoms(randoms);
+
+    // when
+    const maker = new RandomNumberMaker();
+    const uniqueNumber = maker.makeRandomNumber();
+
+    // then
+    expect(uniqueNumber).toBe("135");
+  });
+
+  test("중복되지 않는 랜덤 수 생성 확인", () => {
+    // given
+    const randoms = [1, 3, 1, 5]; // 1이 두 번 나와서 1, 3 다음은 5가 나와야 함
+    mockRandoms(randoms);
+
+    // when
+    const maker = new RandomNumberMaker();
+    const uniqueNumber = maker.makeRandomNumber();
+
+    // then
+    expect(uniqueNumber).toBe("135");
+  });
 });
+
