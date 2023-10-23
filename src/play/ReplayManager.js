@@ -9,7 +9,7 @@ class ReplayManager {
 /*       app.maker.makeRandomNumber(); // 랜덤 숫자 다시 생성
       const newRandomNumber = app.maker.getRandomNumber(); // 새로운 랜덤 숫자 가져오기
       Console.print(`두번째 게임 랜덤수: ${newRandomNumber}`); // 새로운 랜덤 숫자 출력 (디버깅용) */
-      await app.play();
+      //await app.play();
       return true; // 새로운 게임 시작
     } else if (userChoice === '2') {
       return false; // 게임 종료

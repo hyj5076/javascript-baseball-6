@@ -19,7 +19,7 @@ class App {
     try {
       Console.print(Constants.GAME_START); // 게임 시작
       const uniqueNumber = this.maker.getRandomNumber();
-      Console.print(`첫번째 게임 랜덤수: ${uniqueNumber}`);
+      // Console.print(`첫번째 게임 랜덤수: ${uniqueNumber}`);
       
       while (true) {
         const userNumber = await Console.readLineAsync(); // 사용자 수 읽기
