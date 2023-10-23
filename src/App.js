@@ -13,33 +13,17 @@ class App {
     this.reader = new UserNumberReader();
     this.replayManager = new ReplayManager();
     this.maker.makeRandomNumber();
+
+    this.gameState = 'ready';
   }
 
   async play() {
     try {
       Console.print(Constants.GAME_START); // 게임 시작
-      const uniqueNumber = this.maker.getRandomNumber();
-      // Console.print(`첫번째 게임 랜덤수: ${uniqueNumber}`);
-      
-      while (true) {
-        const userNumber = await Console.readLineAsync(); // 사용자 수 읽기
-        if (!correctNumber(userNumber)) {
-          throw new Error("[ERROR]"); // 예외 발생
-        }
+      this.randomNumber = this.maker.getRandomNumber();
 
-        this.reader.setUserNumber(userNumber);
-        const userAnswer = this.reader.getUserNumber();
-        Console.print(`${Constants.NOTICE_INPUT} : ${userAnswer}`);
-        
-        showResult(uniqueNumber, userAnswer); // 결과 문구
-
-        if (this.isGameOver(uniqueNumber, userAnswer)) { 
-          Console.print(Constants.GOAL);
-          const shouldContinue = await this.replayManager.handleReplay(this);
-          if (!shouldContinue) {
-            break; // 게임을 종료하려면 루프를 종료
-          }
-        }
+      while (this.gameState !== 'ended') {
+        await this.nextStep();
       }
     } catch (error) {
       Console.print(Constants.GAME_OVER);
@@ -48,10 +32,55 @@ class App {
     }
   }
 
+  async nextStep() {
+    if (this.gameState === 'ready') {
+      await this.getUserInput();
+    } else if (this.gameState === 'playing') {
+      await this.checkAnswer();
+    } else if (this.gameState === 'finished') {
+      await this.handleReplay();
+    }
+  }
+
+  async getUserInput() {
+    const userNumber = await Console.readLineAsync(); // 사용자 수 읽기
+    if (!correctNumber(userNumber)) {
+      throw new Error("[ERROR]"); // 예외 발생
+    }
+
+    this.reader.setUserNumber(userNumber);
+    const userAnswer = this.reader.getUserNumber();
+    Console.print(`${Constants.NOTICE_INPUT} : ${userAnswer}`);
+
+    this.userAnswer = userAnswer;
+    this.gameState = 'playing';
+    await this.nextStep();
+  }
+
+  async checkAnswer() {
+    showResult(this.randomNumber, this.userAnswer); // 결과 문구
+
+    if (this.isGameOver(this.randomNumber, this.userAnswer)) {
+      Console.print(Constants.GOAL);
+      this.gameState = 'finished';
+    } else {
+      // 여기에 사용자에게 다시 시도하게 할 로직을 추가할 수 있습니다.
+      this.gameState = 'ready';
+    }
+    await this.nextStep();
+  }
+
+  async handleReplay() {
+    this.gameState = await this.replayManager.handleReplay();
+    await this.nextStep();
+  }
+
   isGameOver(computerNumber, playerNumber) {
-    
     return computerNumber === playerNumber; // 게임 종료
   }
 }
+
+/* const app = new App();
+app.play(); */
 
 export default App;
