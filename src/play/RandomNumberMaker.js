@@ -1,8 +1,12 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
 
 class RandomNumberMaker {
-  constructor(randomNumber = '') {
-    this.randomNumber = randomNumber;
+  constructor() {
+    this.randomNumber = '';
+  }
+
+  getRandomNumber() {
+    return this.randomNumber;
   }
 
   makeRandomNumber() {
@@ -12,7 +16,6 @@ class RandomNumberMaker {
         this.randomNumber += newNumber;
       }
     }
-    return this.randomNumber;
   }
 }
 

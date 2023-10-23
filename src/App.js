@@ -12,13 +12,15 @@ class App {
     this.maker = new RandomNumberMaker();
     this.reader = new UserNumberReader();
     this.replayManager = new ReplayManager();
+    this.maker.makeRandomNumber();
   }
 
   async play() {
     try {
       Console.print(Constants.GAME_START); // 게임 시작
-      const uniqueNumber = this.maker.makeRandomNumber();
-
+      const uniqueNumber = this.maker.getRandomNumber();
+      Console.print(`첫번째 게임 랜덤수: ${uniqueNumber}`);
+      
       while (true) {
         const userNumber = await Console.readLineAsync(); // 사용자 수 읽기
         if (!correctNumber(userNumber)) {
@@ -32,10 +34,10 @@ class App {
         showResult(uniqueNumber, userAnswer); // 결과 문구
 
         if (this.isGameOver(uniqueNumber, userAnswer)) { 
-          await this.replayManager.handleReplay(this);
-          /* if (!replay) {
-            break; // 리플레이 하지 않으면 무한 루프 종료
-          } */
+          const shouldContinue = await this.replayManager.handleReplay(this);
+          if (!shouldContinue) {
+            break; // 게임을 종료하려면 루프를 종료
+          }
         }
       }
     } catch (error) {
