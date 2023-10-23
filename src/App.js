@@ -34,6 +34,7 @@ class App {
         showResult(uniqueNumber, userAnswer); // 결과 문구
 
         if (this.isGameOver(uniqueNumber, userAnswer)) { 
+          Console.print(Constants.GOAL);
           const shouldContinue = await this.replayManager.handleReplay(this);
           if (!shouldContinue) {
             break; // 게임을 종료하려면 루프를 종료
@@ -48,6 +49,7 @@ class App {
   }
 
   isGameOver(computerNumber, playerNumber) {
+    
     return computerNumber === playerNumber; // 게임 종료
   }
 }
