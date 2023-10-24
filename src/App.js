@@ -23,6 +23,10 @@ class App {
 
   async play() {
     this.setupNewGame();
+    await this.startGame();
+  }
+
+  async startGame() {
     try {
       while (this.gameState !== 'ended') {
         await this.getUserInput();
@@ -30,8 +34,8 @@ class App {
     } catch (error) {
       Console.print(Constants.GAME_OVER);
       this.endGame();
-      return Promise.reject(error); // 오류가 발생하면 함수를 즉시 종료
-    } 
+      return Promise.reject(error);
+    }
   }
 
   async getUserInput() {
@@ -77,7 +81,7 @@ class App {
   }
 }
 
-// const app = new App();
-// app.play();
+const app = new App();
+app.play();
 
 export default App;
