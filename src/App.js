@@ -12,15 +12,13 @@ class App {
     this.maker = new RandomNumberMaker();
     this.reader = new UserNumberReader();
     this.replayManager = new ReplayManager();
-    this.maker.makeRandomNumber();
-
     this.gameState = 'ready';
   }
 
   async play() {
     try {
       Console.print(Constants.GAME_START); // 게임 시작
-      this.randomNumber = this.maker.getRandomNumber();
+      this.randomNumber = this.maker.makeRandomNumber();
 
       while (this.gameState !== 'ended') {
         await this.nextStep();
@@ -64,7 +62,6 @@ class App {
       Console.print(Constants.GOAL);
       this.gameState = 'finished';
     } else {
-      // 여기에 사용자에게 다시 시도하게 할 로직을 추가할 수 있습니다.
       this.gameState = 'ready';
     }
     await this.nextStep();
