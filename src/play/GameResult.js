@@ -19,8 +19,8 @@ export const showResult = (computerNumber, playerNumber) => {
   }
 
   const result = [];
-  if (strike > 0) result.push(`${strike} ${Constants.STRIKE}`);
-  if (ball > 0) result.push(`${ball} ${Constants.BALL}`);
+  if (ball > 0) result.push(`${ball}${Constants.BALL}`);
+  if (strike > 0) result.push(`${strike}${Constants.STRIKE}`);
 
   if (result.length === 0) {
     Console.print(Constants.NOTHING);
