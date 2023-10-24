@@ -28,7 +28,7 @@ class App {
         await this.getUserInput();
       }
     } catch (error) {
-      Console.print(error.message);
+      Console.print(Constants.GAME_OVER);
       this.endGame();
       return Promise.reject(error); // 오류가 발생하면 함수를 즉시 종료
     } 
@@ -65,7 +65,6 @@ class App {
       this.play();
     } else {
       this.endGame();
-      //Console.print(Constants.GAME_OVER);
     }
   }
 
