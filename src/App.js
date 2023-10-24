@@ -81,7 +81,9 @@ class App {
   }
 }
 
-const app = new App();
-app.play();
+if (process.env.NODE_ENV !== 'test') {
+  const app = new App();
+  app.play();
+}
 
 export default App;
